@@ -32,4 +32,5 @@ def parse_inputs():
         with open("./jsons/" +  str(zip) + str(data[crop]) + "price.json") as f:
             cropDict[data[crop]] = f.read()
         
-    return cropDict
+    return jsonify(cropDict)
+                   
