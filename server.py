@@ -39,11 +39,5 @@ def data():
         # do something with the json file
         with open("./jsons/" + str(zip) + str(data[crop]) + "price.json") as f:
             cropDict[data[crop]] = f.read()
-<<<<<<< HEAD
         
     return jsonify(cropDict)
-                   
-=======
-
-    return jsonify(cropDict)
->>>>>>> 058992d6c3e0b1c386f27a8518f412d4dae8eb72
