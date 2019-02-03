@@ -10,8 +10,11 @@ import requests
 
 api_key = "1bb1edd4423c322cbe59b8b6a425f382"
 
-w = [{'low': 999, 'high': -999, 'date': '', 'weather': '', 'rain': 0, 'snow': 0}]  # initialize weather dict
+w=[]
 
+def initW():  # initialize weather dict
+    global w
+    w = [{'low': 999, 'high': -999, 'date': '', 'weather': '', 'rain': 0, 'snow': 0}]
 
 def hasSnow(x, i):
     try:
@@ -30,6 +33,7 @@ def hasRain(x, i):
 
 
 def getWeather(z):  # download/update weather, pass in zip code
+    initW()
     z = str(z)  # ensure zip is string
     base_url = "http://api.openweathermap.org/data/2.5/forecast?"
     complete_url = base_url + "appid=" + api_key + "&zip=" + z + ",us"
