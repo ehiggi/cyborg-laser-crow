@@ -10,7 +10,7 @@ Vue.component('landing-page', {
                     <option>Corn</option>
                     <option>Wheat</option>
                     <option>Barley</option>
-                    <option>Alfalfa</option>
+                    <option>Soybean</option>
                     <option>Cotton</option>
                     <option>Cowmoji</option>
                 </select>
@@ -93,13 +93,13 @@ function fetch_all(zip,crops) {
     var cropStr = '';
     for (var crop in crops) {
         if (cropStr == '') {
-            cropStr = crop;
+            cropStr = crops[crop];
         }
         else{
-            cropStr += ',' + crop;
+            cropStr += ',' + crops[crop];
         }
     }
 
-    fetch(`http://${window.location.hostname}:5000/data?zip=${zip}&crops=${cropstr}`, {}) .then(response => response.json()) .then(success => (app.$data.fullData = success)) .catch(error => console.log(error))
+    fetch(`http://${window.location.hostname}:5000/data?zip=${zip}&crops=${cropStr}`, {}) .then(response => response.json()) .then(success => (app.$data.fullData = success)) .catch(error => console.log(error))
 }
 
