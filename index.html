@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-<html lang="en">
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
@@ -21,14 +20,14 @@
     <landing-page @complete-search="search">
     </landing-page>
     <div class="container" style="overflow-y: scroll" v-if="hasSearched">
-    <price-table></price-table>
-
+        <price-table></price-table>
+                <weather-app
+        v-bind:data="weatherData"></weather-app>
     </div>
 
 
 </div>
 
-</html>
 
 </body>
 

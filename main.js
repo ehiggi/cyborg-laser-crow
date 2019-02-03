@@ -32,6 +32,21 @@ Vue.component('landing-page', {
         }
     }
 });
+Vue.component('weather-app',{
+    props:{
+        data: {
+            type: Object
+        }
+    },
+   template: `
+   <div>
+   <div v-for="day in data">
+   <h3>Low: {{day.low}}</h3>
+   <h3>High: {{day.high}}</h3>
+</div>
+</div>
+   `
+});
 Vue.component('price-table', {
     props: {
         weatherData: {
@@ -92,6 +107,11 @@ var app= new Vue({
             this.zipCode = zip;
             this.crops = crops;
             fetch_all(zip,crops);
+        }
+    },
+    computed: {
+        weatherData() {
+            return this.fullData.weather
         }
     }
 
