@@ -55,18 +55,21 @@ Vue.component('weather-app',{
 });
 Vue.component('price-table', {
     props: {
+        crops: {
+            type: Array
+        },
         priceData: {
             type: Object,
         }
     },
     template: `
     <div class="container" >
-        <table v-for="crop in cropTypes"> {{crop}}
+        <table v-for="crop in crops"> {{crops[crop]}}
             <tr>
                 <th v-for="key in priceHeaders">{{key}}</th>
             </tr>
-            <tr v-for="entry in list">
-                <td v-for="key in priceHeaders">{{priceData[crop][key][list[entry]]}}</td>
+            <tr v-for">
+                <td v-for="key in priceHeaders">{{cropPrices[crops[crop]][key][list[entry]]}}</td>
             </tr>
         </table>
     </div>
@@ -82,7 +85,7 @@ Vue.component('price-table', {
             var crop_dict = {};
             for (key in this.priceData) {
                 if (this.priceData.key) {
-                    crop_dict[key]= JSON.parse(this.priceData.key)
+                    crop_dict[key]= this.priceData.key
                 }
             }
             return crop_dict
@@ -100,8 +103,14 @@ Vue.component('price-table', {
                 c_list.push(key);
             }
             return c_list
+        },
+
+    },
+    data() {
+            return {
+                list: ['1','2','3','4','5','6','7','8','9','10']
+            }
         }
-    }
 });
 var app= new Vue({
     el: '#app',
