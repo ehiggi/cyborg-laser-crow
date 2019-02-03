@@ -27,7 +27,7 @@ class PriceDataEvaluator (AbstractEvaluator):
         f10 = rel.filter(items = [1,2,3,4,5,6,7,8,9,10],axis=0)
         #make a json based on the location/croptype
         json = "../jsons/" + str(self.getLocation()) + str(self.getCropType()) \
-               + ".json"
+               + "price.json"
         f10.to_json(json)
 
 
