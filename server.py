@@ -1,5 +1,6 @@
 from flask import Flask, jsonify, request
 from flask_cors import CORS
+from DataEvaluatorBuilder import DataEvalBuilder
 
 app = Flask(__name__)
 CORS(app)
@@ -10,7 +11,7 @@ def parse_inputs():
     zip = int(request.args.get('zip'))
     crop_list = request.args.get('crops').split(',')
     barleyPriceData = "./data/barley_price.csv"
-    cotttonPriceData = "./data/cotton_price.csv"
+    cottonPriceData = "./data/cotton_price.csv"
     cornPriceData = "./data/corn_price.csv"
     soybeanPriceData = "./data/soybean_price.csv"
     wheatPriceData = "./data/wheat_price.csv"
@@ -23,7 +24,7 @@ def parse_inputs():
             "Wheat": wheatPriceData}
     for crop in crop_list:
         # get the correct evaluator for each type of crop
-        builder = DataEvaluatorBuilder(zip, data[crop])
+        builder = DataEvalBuilder(zip, data[crop])
         evaluator = builder.get("prices")
         # the evaluator prettifys the data
         evaluator.evaluate()
