@@ -1,4 +1,9 @@
 Vue.component('landing-page', {
+    props:{
+      cropData: {
+          type: Object
+      }
+    },
     template: `
     <div class="container">
         <div class="row">
@@ -14,7 +19,7 @@ Vue.component('landing-page', {
                     <option>Cotton</option>
                     <option>Cowmoji</option>
                 </select>
-                <button class="Button js-button" @click="lookup">Transform me into a beautiful corn child</button>
+                <button @click="lookup">Submit</button>
                 </div>
             </div>
         </div>
@@ -32,49 +37,68 @@ Vue.component('landing-page', {
         }
     }
 });
+Vue.component('weather-app',{
+    props:{
+        data: {
+            type: Array
+        }
+    },
+   template: `
+   <div>
+   <div v-for="day in data">
+   <h3>Low: {{day.low}}</h3>
+   <h3>High: {{day.high}}</h3>
+</div>
+</div>
+   `
+});
 Vue.component('price-table', {
     props: {
-        weatherData: {
+        priceData: {
             type: Object,
         }
     },
     template: `
     <div class="container" >
-        <table>
+        <table v-for="crop in cropTypes"> {{crop}}
             <tr>
                 <th v-for="key in priceHeaders">{{key}}</th>
             </tr>
             <tr v-for="entry in list">
-                <td v-for="key in priceHeaders">{{priceData[key][list[entry]]}}</td>
+                <td v-for="key in priceHeaders">{{priceData[crop][key][list[entry]]}}</td>
             </tr>
         </table>
     </div>
     `,
-    data() {
-        return {
-            priceData: {
-                "Year":{"1":2017,"2":2016,"3":2015,"4":2014,"5":2013,"6":2012,"7":2011,"8":2010,"9":2009,"10":2008},
-                "PRICE":{"1":"9.39","2":"9.39","3":"9.49","4":"12.5","5":"14.1","6":"14","7":"12.5","8":"9.97","9":"10.1","10":"11.3"},
-                "YIELD":{"1":49.3,"2":52.0,"3":48.0,"4":47.5,"5":44.0,"6":40.0,"7":42.0,"8":43.5,"9":44.0,"10":39.7}},
-            list: ['1','2','3','4','5','6','7','8','9','10']
-        }
 
-    },
     methods:{
         lookup:function () {
             this.$emit('complete-search',this.zip, this.crops)
         }
     },
     computed: {
-        priceHeaders(){
+        cropPrices() {
+            var crop_dict = {};
+            for (key in this.priceData) {
+                if (this.priceData.key !== '') {
+                    crop_dict.key = JSON.parse(this.priceData.key)
+                }
+            }
+            return crop_dict
+        },
+        cropTypes(){
             var c_list = [];
-            for (var key in this.priceData) {
+            for (var key in this.cropPrices) {
                 c_list.push(key);
             }
             return c_list
         },
-        priceRows(){
-
+        priceHeaders(){
+            var c_list = [];
+            for (var key in this.cropPrices[this.cropTypes[0]]) {
+                c_list.push(key);
+            }
+            return c_list
         }
     }
 });
@@ -92,6 +116,11 @@ var app= new Vue({
             this.zipCode = zip;
             this.crops = crops;
             fetch_all(zip,crops);
+        }
+    },
+    computed: {
+        weatherData() {
+            return this.fullData.weather
         }
     }
 

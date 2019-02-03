@@ -3,7 +3,7 @@ import os
 from flask import Flask, jsonify, request
 from flask_cors import CORS
 from DataEvalBuilder import DataEvalBuilder
-
+import weather
 app = Flask(__name__)
 CORS(app)
 
@@ -35,10 +35,11 @@ def data():
         evaluator = builder.get("prices")
         # the evaluator prettifys the data
         dirr = "." + data[crop]
-        cropDict[data[crop]] = evaluator.evaluate(dirr)
+        cropDict[crop] = evaluator.evaluate(dirr)
         # do something with the json file
 ##        with open("./jsons/" + str(zip) + str(data[crop]) + "price.json") as f:
 ##            cropDict[data[crop]] = f.read()
-        
-    return jsonify(cropDict)
+    weatherDict = weather.getWeather(zip)
+    output = {'cropPrice':cropDict,'weather':weatherDict}
+    return jsonify(output)
 
