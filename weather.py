@@ -29,7 +29,7 @@ def hasRain(x, i):
         return False
 
 
-def update(z):  # download/update weather, pass in zip code
+def getWeather(z):  # download/update weather, pass in zip code
     z = str(z)  # ensure zip is string
     base_url = "http://api.openweathermap.org/data/2.5/forecast?"
     complete_url = base_url + "appid=" + api_key + "&zip=" + z + ",us"
@@ -60,6 +60,8 @@ def update(z):  # download/update weather, pass in zip code
         el['low'] -= 273
         el['high'] -= 273
 
+    return w
+
 
 def printWeather():  # print weather (debug purposes)
     for el in w:
@@ -68,6 +70,3 @@ def printWeather():  # print weather (debug purposes)
 
 
 # api.openweathermap.org/data/2.5/forecast?zip=94040,us
-
-def getWeather():  # return weather dictionary
-    return w
