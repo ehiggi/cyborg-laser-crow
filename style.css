@@ -1,9 +1,36 @@
 body {
   background-color: skyblue;
 }
+select {
+    -webkit-appearance: menulist;
+    height: auto;
+    width: auto;
+    padding: .2em;
+    align-items: center;
+    white-space: pre;
+    -webkit-rtl-ordering: logical;
+    color: white;
+    background-color: #ECEFF1;
+    border: none;
+    cursor: default;
+    font: inherit;
+    box-shadow: 0 0;
+    background-color: rgba(55, 71, 79, .05);
+    border-bottom: .15em solid hsl(0,2%,65%);
+    border-radius: 1px;
 
+
+
+}
+select option {
+    background: #455A64;
+}
+select:disabled {
+    color: #babdbe;
+
+}
 button {
-  background-color: #4ba3c7; /* Blu */
+  background-color: lightgray; /* Green */
   border: none;
   color: white;
   padding: 15px 32px;
@@ -13,11 +40,12 @@ button {
   font-size: 16px;
 }
 .weather-box {
-      margin: 0.3em;
+    margin: 0.3em;
     background-color: #ECEFF1;
     box-shadow: 0 0px 3px rgba(55, 71, 79, .5), 0 1px 4px #90a4ae;
     width: 100%;
     display: table;
+}
 
 table {
   border-collapse: collapse;
@@ -25,4 +53,24 @@ table {
 
 table, th, td {
   border: 1px solid black;
+}
+input[type="text"] {
+    background: rgba(55, 71, 79, .05);
+    padding: .2em;
+    width: 5em;
+    height: auto;
+    border: 0;
+    outline: 1px;
+    border-bottom: .15em solid hsl(0,2%,65%);
+    border-radius: 1px;
+    font: inherit;
+
+}
+input.errorInput{
+    border-bottom-color: #f44336;
+}
+
+textarea {
+    width: auto;
+    height: 60px;
 }
