@@ -19,7 +19,7 @@
     <landing-page @complete-search="search">
     </landing-page>
     <div class="container" v-if="hasSearched">
-        <price-table v-bind:price-data="fullData.cropPrice"></price-table>
+        <price-table v-bind:price-data="fullData.cropPrice" v-bind:crops="crops"></price-table>
                 <weather-app
         v-bind:data="weatherData"></weather-app>
     </div>
