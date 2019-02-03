@@ -63,6 +63,8 @@ def getWeather(z):  # download/update weather, pass in zip code
     for el in w:  # convert temps from kelvin to celsius
         el['low'] -= 273
         el['high'] -= 273
+        el['low'] = int(el['low'])
+        el['high'] = int(el['high'])
 
     return w
 
