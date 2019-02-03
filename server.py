@@ -34,7 +34,6 @@ def data():
         builder = DataEvalBuilder(zip,data[crop])
         evaluator = builder.get("prices")
         # the evaluator prettifys the data
-        dir = os.getcwd() + data[crop]
         evaluator.evaluate(dir)
         # do something with the json file
         with open("./jsons/" + str(zip) + str(data[crop]) + "price.json") as f:
