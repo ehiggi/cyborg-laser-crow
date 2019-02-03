@@ -31,10 +31,9 @@ def data():
             "Wheat": wheatPriceData}
     for crop in crop_list:
         #get the correct evaluator for each type of crop
-        builder = DataEvaluatorBuilder(zip,data[crop])
+        builder = DataEvalBuilder(zip,data[crop])
         evaluator = builder.get("prices")
         # the evaluator prettifys the data
-        dir = os.getcwd() + data[crop]
         evaluator.evaluate(dir)
         # do something with the json file
         with open("./jsons/" + str(zip) + str(data[crop]) + "price.json") as f:
