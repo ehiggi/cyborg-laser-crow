@@ -1,7 +1,8 @@
 import sys
 sys.path.append("../evaluators")
 from PriceDataEvaluator import PriceDataEvaluator
-
+from WeatherEvaluator import WeatherEvaluator
+from MemeEvaluator import MemeEvaluator
 #dictates which data evaluator object to get
 class DataEvalBuilder (object):
     def __init__(self,location,cropType):
