@@ -14,7 +14,7 @@ Vue.component('landing-page', {
                     <option>Cotton</option>
                     <option>Cowmoji</option>
                 </select>
-                <button @click="lookup">FARM SEARCH</button>
+                <button @click="lookup">Transform me into a beautiful corn child</button>
                 </div>
             </div>
         </div>
