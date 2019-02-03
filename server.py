@@ -41,5 +41,6 @@ def data():
 ##            cropDict[data[crop]] = f.read()
     weatherDict = weather.getWeather(zip)
     output = {'cropPrice':cropDict,'weather':weatherDict}
-    return jsonify(output)
+    #return jsonify(output)
+    return output
 
