@@ -17,11 +17,11 @@ def test():
 def data():
     zip = int(request.args.get('zip'))
     crop_list = request.args.get('crops').split(',')
-    barleyPriceData = "./data/barley_price.csv"
-    cottonPriceData = "./data/cotton_price.csv"
-    cornPriceData = "./data/corn_price.csv"
-    soybeanPriceData = "./data/soybean_price.csv"
-    wheatPriceData = "./data/wheat_price.csv"
+    barleyPriceData = "/data/barley_price.csv"
+    cottonPriceData = "/data/cotton_price.csv"
+    cornPriceData = "/data/corn_price.csv"
+    soybeanPriceData = "/data/soybean_price.csv"
+    wheatPriceData = "/data/wheat_price.csv"
     cropDict = {"Corn":'',"Cotton":'',"Barley":'',"Soybean":'',"Wheat":''}
     #the dropdown in the UI should use these keys exactly
     data = {"Corn" : cornPriceData,
@@ -34,10 +34,11 @@ def data():
         builder = DataEvalBuilder(zip,data[crop])
         evaluator = builder.get("prices")
         # the evaluator prettifys the data
-        evaluator.evaluate(dir)
+        dirr = "." + data[crop]
+        cropDict[data[crop]] = evaluator.evaluate(dirr)
         # do something with the json file
-        with open("./jsons/" + str(zip) + str(data[crop]) + "price.json") as f:
-            cropDict[data[crop]] = f.read()
+##        with open("./jsons/" + str(zip) + str(data[crop]) + "price.json") as f:
+##            cropDict[data[crop]] = f.read()
         
     return jsonify(cropDict)
 
