@@ -2,17 +2,21 @@ Vue.component('landing-page', {
     template: `
     <div class="container">
         <div class="row">
-                <div class="col-sm-3 col-md-10 col-md-offset-1">
+            <div>
+                <div class="col-sm-12 col-md-10 col-md-offset-1">
                 <label>Enter Zip Code:</label>
                 <input type="text" v-model="zip">
-                <select name="crops" v-model="crops" data-selectr-opts='{ "title": "Desired crops?", "placeholder": "Search crops" }'  multiple>
-                    <option data-selectr-color="rgb(186, 169, 20)">Barley</option>
-                    <option data-selectr-color="rgb(244, 224, 45)">Corn</option>
-                    <option data-selectr-color="rgb(0, 0, 0)">Cotton</option>
-                    <option data-selectr-color="rgb(186, 169, 20)">Wheat</option>
+                <select class="mdb-select md-form" v-model="crops" multiple>
+                    <option>Corn</option>
+                    <option>Wheat</option>
+                    <option>Barley</option>
+                    <option>Soybean</option>
+                    <option>Cotton</option>
+                    <option>Cowmoji</option>
                 </select>
                 <button @click="lookup">FARM SEARCH</button>
                 </div>
+            </div>
         </div>
     </div>
     `,
@@ -28,11 +32,10 @@ Vue.component('landing-page', {
         }
     }
 });
-Vue.component('weather', {
+Vue.component('price-table', {
     props: {
         weatherData: {
             type: Object,
-            required: true
         }
     },
     template: `
@@ -61,6 +64,18 @@ Vue.component('weather', {
         lookup:function () {
             this.$emit('complete-search',this.zip, this.crops)
         }
+    },
+    computed: {
+        priceHeaders(){
+            var c_list = [];
+            for (var key in this.priceData) {
+                c_list.push(key);
+            }
+            return c_list
+        },
+        priceRows(){
+
+        }
     }
 });
 var app= new Vue({
@@ -86,13 +101,13 @@ function fetch_all(zip,crops) {
     var cropStr = '';
     for (var crop in crops) {
         if (cropStr == '') {
-            cropStr = crop;
+            cropStr = crops[crop];
         }
         else{
-            cropStr += ',' + crop;
+            cropStr += ',' + crops[crop];
         }
     }
 
-    fetch(`http://${window.location.hostname}:5000/data?zip=${zip}&crops=${cropstr}`, {}) .then(response => response.json()) .then(success => (app.$data.fullData = success)) .catch(error => console.log(error))
+    fetch(`http://${window.location.hostname}:5000/data?zip=${zip}&crops=${cropStr}`, {}) .then(response => response.json()) .then(success => (app.$data.fullData = success)) .catch(error => console.log(error))
 }
 
