@@ -30,8 +30,7 @@ class PriceDataEvaluator (AbstractEvaluator):
         #make a json based on the location/croptype
         json = "./jsons/" + str(self.getLocation()) + str(self.getCropType()) \
                + "price.json"
-        #return f10.to_json()
-        return f10.to_dict()
+        return f10.to_json()
 
 
 
