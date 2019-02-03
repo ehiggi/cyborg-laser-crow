@@ -1,3 +1,5 @@
+import os
+
 from flask import Flask, jsonify, request
 from flask_cors import CORS
 from DataEvalBuilder import DataEvalBuilder
@@ -6,8 +8,13 @@ app = Flask(__name__)
 CORS(app)
 
 
+@app.route("/test")
+def test():
+    return 'HELLO'
+
+
 @app.route("/data")
-def parse_inputs():
+def data():
     zip = int(request.args.get('zip'))
     crop_list = request.args.get('crops').split(',')
     barleyPriceData = "./data/barley_price.csv"
@@ -26,11 +33,17 @@ def parse_inputs():
         #get the correct evaluator for each type of crop
         builder = DataEvaluatorBuilder(zip,data[crop])
         evaluator = builder.get("prices")
-        #the evaluator prettifys the data
-        evaluator.evaluate()
-        #do something with the json file
-        with open("./jsons/" +  str(zip) + str(data[crop]) + "price.json") as f:
+        # the evaluator prettifys the data
+        dir = os.getcwd() + data[crop]
+        evaluator.evaluate(dir)
+        # do something with the json file
+        with open("./jsons/" + str(zip) + str(data[crop]) + "price.json") as f:
             cropDict[data[crop]] = f.read()
+<<<<<<< HEAD
         
     return jsonify(cropDict)
                    
+=======
+
+    return jsonify(cropDict)
+>>>>>>> 058992d6c3e0b1c386f27a8518f412d4dae8eb72
