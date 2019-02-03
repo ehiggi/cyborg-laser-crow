@@ -17,7 +17,6 @@ Vue.component('landing-page', {
                     <option>Barley</option>
                     <option>Soybean</option>
                     <option>Cotton</option>
-                    <option>Cowmoji</option>
                 </select>
                 <button @click="lookup">Submit</button>
                 </div>
@@ -80,8 +79,8 @@ Vue.component('price-table', {
         cropPrices() {
             var crop_dict = {};
             for (key in this.priceData) {
-                if (this.priceData.key !== '') {
-                    crop_dict.key = JSON.parse(this.priceData.key)
+                if (this.priceData.key) {
+                    crop_dict[key]= JSON.parse(this.priceData.key)
                 }
             }
             return crop_dict
