@@ -18,7 +18,7 @@
 <div id="app">
     <landing-page @complete-search="search">
     </landing-page>
-    <div class="container" style="overflow-y: scroll" v-if="hasSearched">
+    <div class="container" v-if="hasSearched">
         <price-table v-bind:price-data="fullData.cropPrice"></price-table>
                 <weather-app
         v-bind:data="weatherData"></weather-app>

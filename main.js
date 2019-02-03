@@ -45,7 +45,7 @@ Vue.component('weather-app',{
     },
    template: `
    <div>
-   <div v-for="day in data">
+   <div v-for="day in data" class="weather-box">
    <h3>Low: {{day.low}}</h3>
    <h3>High: {{day.high}}</h3>
 </div>
