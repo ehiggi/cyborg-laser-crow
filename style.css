@@ -2,7 +2,7 @@ body {
   background-color: skyblue;
 }
 
-.button {
+button {
   background-color: #4CAF50; /* Green */
   border: none;
   color: white;
@@ -18,4 +18,11 @@ body {
     box-shadow: 0 0px 3px rgba(55, 71, 79, .5), 0 1px 4px #90a4ae;
     width: 100%;
     display: table;
+
+table {
+  border-collapse: collapse;
+}
+
+table, th, td {
+  border: 1px solid black;
 }
