@@ -39,8 +39,7 @@ def data():
         # do something with the json file
 ##        with open("./jsons/" + str(zip) + str(data[crop]) + "price.json") as f:
 ##            cropDict[data[crop]] = f.read()
-    weather.update(zip)
-    weatherDict = weather.getWeather()
+    weatherDict = weather.getWeather(zip)
     output = {'cropPrice':cropDict,'weather':weatherDict}
     return jsonify(output)
 
