@@ -32,12 +32,15 @@ Vue.component('landing-page', {
         }
     }
 });
-Vue.component('tile', {
+Vue.component('weather', {
     props: {
-
+        weatherData: {
+            type: Object,
+            required: true
+        }
     },
     template: `
-    <div class="container">
+    <div class="container" >
         <div class="col-xl">
             <div>
                 <label>Enter Zip Code:</label>
@@ -46,7 +49,7 @@ Vue.component('tile', {
                     <option>Corn</option>
                     <option>Wheat</option>
                     <option>Barley</option>
-                    <option>Alfalfa</option>
+                    <option>Soybeans</option>
                     <option>Cotton</option>
                     <option>Cowmoji</option>
                 </select>
@@ -80,17 +83,23 @@ var app= new Vue({
             this.hasSearched = true;
             this.zipCode = zip;
             this.crops = crops;
+            fetch_all(zip,crops);
         }
     }
 
 });
 
-
 function fetch_all(zip,crops) {
-    var cropstr = '';
+    var cropStr = '';
     for (var crop in crops) {
-        cropstr += crop;
+        if (cropStr == '') {
+            cropStr = crop;
+        }
+        else{
+            cropStr += ',' + crop;
+        }
     }
 
-fetch(`http://${window.location.hostname}:5000/data?zip=${zip}&crops=${cropstr}`, {}) .then(response => response.json()) .then(success => (app.$data.fullData = success)) .catch(error => console.log(error))
+    fetch(`http://${window.location.hostname}:5000/data?zip=${zip}&crops=${cropstr}`, {}) .then(response => response.json()) .then(success => (app.$data.fullData = success)) .catch(error => console.log(error))
 }
+
