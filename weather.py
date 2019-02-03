@@ -10,8 +10,21 @@ import requests, json
 
 api_key = "1bb1edd4423c322cbe59b8b6a425f382"
 
-w = [{'low':999,'high':-999,'date':'','weather':''}]	#initialize weather dict
+w = [{'low':999,'high':-999,'date':'','weather':'','rain':0,'snow':0}]	#initialize weather dict
 
+def hasSnow(x,i):
+	try:
+		isEmpty = (x["list"][i]['snow'] != {})
+		return isEmpty
+	except KeyError:
+		return False
+		
+def hasRain(x,i):
+	try:
+		isEmpty = (x["list"][i]['rain'] != {})
+		return isEmpty
+	except KeyError:
+		return False
 
 def update(z):	#download/update weather, pass in zip code
 	z = str(z)	#ensure zip is string
@@ -30,11 +43,15 @@ def update(z):	#download/update weather, pass in zip code
 		if date != curDate:	#if current weather data date is not the current one update what we are now on
 			curDay += 1
 			curDate = date
-			w.append({'low':999,'high':-999,'date':'','weather':''})
+			w.append({'low':999,'high':-999,'date':'','weather':'','rain':0,'snow':0})
 		w[curDay]['date'] = curDate
 		w[curDay]['high'] = max((x["list"][i]['main']['temp_max']), w[curDay]['high'])
 		w[curDay]['low'] = min((x["list"][i]['main']['temp_min']), w[curDay]['low'])
 		w[curDay]['weather'] = x["list"][i]['weather'][0]['main']
+		if hasRain(x,i):
+			w[curDay]['rain'] += x["list"][i]['rain']['3h']
+		if hasSnow(x,i):
+			w[curDay]['snow'] += x["list"][i]['snow']['3h']
 	
 	for el in w:	#convert temps from kelvin to celsius
 		el['low'] -=273
@@ -42,7 +59,7 @@ def update(z):	#download/update weather, pass in zip code
 
 def printWeather():	#print weather (debug purposes)
 	for el in w:
-		print("On date: " + str(el['date']) + " lo=" + str(el['low']) + " hi=" + str(el['high']) + " weather=" + el['weather'])
+		print("On date: " + str(el['date']) + " lo=" + str(el['low']) + " hi=" + str(el['high']) + " weather=" + el['weather'] + " mm-rain=" + str(el['rain']) + " mm-snow=" + str(el['snow']))
 	#api.openweathermap.org/data/2.5/forecast?zip=94040,us
 
 def getWeather():	#return weather dictionary
