@@ -74,3 +74,8 @@ textarea {
     width: auto;
     height: 60px;
 }
+
+.column {
+  float: left;
+  width: 50%;
+}
