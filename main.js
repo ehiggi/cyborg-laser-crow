@@ -14,7 +14,7 @@ Vue.component('landing-page', {
                     <option>Cotton</option>
                     <option>Cowmoji</option>
                 </select>
-                <button @click="lookup">Transform me into a beautiful corn child</button>
+                <button class="Button js-button" @click="lookup">Transform me into a beautiful corn child</button>
                 </div>
             </div>
         </div>
@@ -110,4 +110,3 @@ function fetch_all(zip,crops) {
 
     fetch(`http://${window.location.hostname}:5000/data?zip=${zip}&crops=${cropStr}`, {}) .then(response => response.json()) .then(success => (app.$data.fullData = success)) .catch(error => console.log(error))
 }
-
